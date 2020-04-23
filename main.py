@@ -40,44 +40,45 @@ def predicts(filename, loaded_model):
     img_width, img_height = 64, 64
     image_path = filename
     img = image.load_img(image_path, target_size=(img_width, img_height))
-    print("image loaded")
+    # print("image loaded")
     x = image.img_to_array(img)
     # plt.imshow(x)
     x = np.expand_dims(img, axis=0)
 
     images = np.vstack([x])
     classes = loaded_model.predict_classes(images, batch_size=10)
-    print(classes)
+    # print(classes)
+    return classes
 
 @app.route("/uploadImage", methods=["POST"])
 def upload_image():
     target = os.path.join(APP_ROOT, 'images/')
     # target = os.path.join(APP_ROOT, 'static/')
-    print(target)
+    # print(target)
     if not os.path.isdir(target):
             os.mkdir(target)
     else:
         print("Couldn't create upload directory: {}".format(target))
-    print(request.files.getlist("image"))
+    # print(request.files.getlist("image"))
     # image = request.files.getlist("image")
     for upload in request.files.getlist("image"):
-        print(upload)
-        print("{} is the file name".format(upload.filename))
+        # print(upload)
+        # print("{} is the file name".format(upload.filename))
         filename = upload.filename
         destination = "/".join([target, filename])
-        print ("Accept incoming file:", filename)
-        print ("Save it to:", destination)
+        # print ("Accept incoming file:", filename)
+        # print ("Save it to:", destination)
         upload.save(destination)
 
         #converting image to ndarray
         img = mpimg.imread(upload)
         loaded_model = loadModel()
-        print("Model_loaded")
-        predicts(destination, loaded_model)
+        # print("Model_loaded")
+        label = predicts(destination, loaded_model)
         # print(img)
 
     # return send_from_directory("images", filename, as_attachment=True)
-    return render_template("preview_image.html", image_name=filename)
+    return render_template("preview_image.html", image_name=filename, label=label)
 
 @app.route('/upload/<filename>')
 def send_image(filename):

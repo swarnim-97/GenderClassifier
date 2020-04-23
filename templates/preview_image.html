@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Result</title>
 </head>
 <body>
-Uploaded
-<img src=" {{url_for('send_image', filename=image_name)}}" height="350" width="280">
+<!-- Uploaded -->
+<img src=" {{url_for('send_image', filename=image_name)}}" height="385" width="298">
+<br>
+<br>
+{% if label==1 %}
+<button class="button">Female</button>
+{% else %}
+<button class="button">Male</button>
+{% endif %}
 </body>
 </html>

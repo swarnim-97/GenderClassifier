@@ -1,0 +1,22 @@
+<!Doctype html>
+<html lang=en>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<title>Gender Classifier</title>
+<body>
+  <h2>Gender Classifier</h2>
+<form action = "{{ url_for('dict') }}" method = "get">
+<p>Input Image</p>
+<!--<p> <input type="image" src="img_submit.gif" alt="Submit"> </p>
+<!--<p><input type = "submit" value="submit" /></p>-->
+<div class="form-group">
+    <!--<label for="txtPost">Photos</label>-->
+                <p>Browse…</p> <input type="file" id="fileupload" name="file" multiple>
+          <!--<input type="text" class="form-control" readonly>-->
+ </div>
+
+</form>
+
+</body>
+</head>
+</html>
